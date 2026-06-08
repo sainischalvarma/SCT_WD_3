@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Quiz Game - Web Dev Academy</title>
+    <link rel="stylesheet" href="./style.css">
+    <!-- Lucide Icons CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide/dist/umd/lucide.min.js"></script>
+  </head>
+  <body class="light-theme min-h-screen transition-colors duration-300">
+    
+    <!-- Top Decorative Gradient Glows -->
+    <div class="fixed top-0 left-1/4 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl pointer-events-none"></div>
+
+    <!-- Main Outer Container -->
+    <div class="relative z-10 flex flex-col min-h-screen px-4 md:px-8 py-6 max-w-5xl mx-auto">
+      
+      <!-- Top Navigation Bar -->
+      <header class="flex items-center justify-between mb-8 pb-4 border-b border-slate-200/40 dark:border-slate-800/20">
+        <div class="flex items-center space-x-3">
+          <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20">
+            <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h1 class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
+              QuizAcademy
+            </h1>
+            <p class="text-xs font-mono text-slate-500 dark:text-slate-400 tracking-wider uppercase">Internship Sandbox</p>
+          </div>
+        </div>
+
+        <!-- Controls (Theme & Leaderboard modal action) -->
+        <div class="flex items-center space-x-2">
+          <!-- Leaderboard Button -->
+          <button id="nav-leaderboard-btn" class="flex items-center space-x-2 px-3 py-2 rounded-lg bg-white/60 dark:bg-slate-900/40 hover:bg-white/95 dark:hover:bg-slate-900/80 border border-slate-200/30 dark:border-slate-800/10 text-slate-700 dark:text-slate-200 text-sm font-medium transition-all" title="View Leaderboard">
+            <i data-lucide="trophy" class="w-4 h-4 text-amber-500"></i>
+            <span class="hidden md:inline">Top Scores</span>
+          </button>
+
+          <!-- Instructions Modal Button -->
+          <button id="nav-info-btn" class="p-2 rounded-lg bg-white/60 dark:bg-slate-900/40 hover:bg-white/95 dark:hover:bg-slate-900/80 border border-slate-200/30 dark:border-slate-800/10 text-slate-600 dark:text-slate-300 transition-all text-sm" title="Help & Info">
+            <i data-lucide="help-circle" class="w-4 h-4"></i>
+          </button>
+
+          <!-- Theme Toggle Button -->
+          <button id="theme-toggle" class="p-2.5 rounded-lg bg-white/60 dark:bg-slate-900/40 hover:bg-white/95 dark:hover:bg-slate-900/80 border border-slate-200/30 dark:border-slate-800/10 text-slate-600 dark:text-slate-300 transition-all cursor-pointer" aria-label="Toggle Theme">
+            <i id="theme-icon" data-lucide="moon" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Quiz Workspace Container -->
+      <main class="flex-1 flex flex-col justify-center max-w-3xl w-full mx-auto">
+        
+        <!-- ==================== SCREEN 1: WELCOME SCREEN ==================== -->
+        <section id="screen-welcome" class="glass-panel rounded-3xl p-6 md:p-10 animate-fade-in">
+          <div class="text-center mb-8">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 mb-4 border border-blue-200/10">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 mr-1 animate-pulse"></i>
+              Interactive Skills Evaluation
+            </span>
+            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-800 dark:text-white mb-3">
+              Web Developer Core Quiz
+            </h2>
+            <p class="text-slate-600 dark:text-slate-300 max-w-lg mx-auto text-sm md:text-base">
+              Establish and test your proficiency in main modern standard technologies. Dynamic modules adjust core difficulties to simulate advanced development benchmarks.
+            </p>
+          </div>
+
+          <!-- Configuration Controls Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 bg-white/35 dark:bg-slate-900/20 p-5 md:p-6 rounded-2xl border border-white/40 dark:border-white/5">
+            
+            <!-- Category Selector -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 flex items-center">
+                <i data-lucide="code" class="w-3.5 h-3.5 mr-1 text-slate-400"></i>
+                Select Category
+              </label>
+              <div class="space-y-2">
+                <label class="category-pill flex items-center justify-between p-3 rounded-xl border border-slate-200/60 dark:border-slate-800/20 bg-white/70 dark:bg-slate-950/20 cursor-pointer hover:border-blue-400 dark:hover:border-blue-500/40 hover:bg-blue-50/20 transition-all duration-200">
+                  <div class="flex items-center space-x-3">
+                    <div class="p-1.5 rounded-lg bg-orange-100 dark:bg-orange-950/30 text-orange-600 dark:text-orange-400">
+                      <i data-lucide="braces" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                      <div class="text-sm font-bold">HTML Markup</div>
+                      <div class="text-[11px] text-slate-500">Document structures & semantics</div>
+                    </div>
+                  </div>
+                  <input type="radio" name="quiz-category" value="html" checked class="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                </label>
+
+                <label class="category-pill flex items-center justify-between p-3 rounded-xl border border-slate-200/60 dark:border-slate-800/20 bg-white/70 dark:bg-slate-950/20 cursor-pointer hover:border-blue-400 dark:hover:border-blue-500/40 hover:bg-blue-50/20 transition-all duration-200">
+                  <div class="flex items-center space-x-3">
+                    <div class="p-1.5 rounded-lg bg-cyan-100 dark:bg-cyan-950/30 text-cyan-600 dark:text-cyan-400">
+                      <i data-lucide="palette" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                      <div class="text-sm font-bold">CSS Styling</div>
+                      <div class="text-[11px] text-slate-500">Grid, Flexbox, box models & styling</div>
+                    </div>
+                  </div>
+                  <input type="radio" name="quiz-category" value="css" class="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                </label>
+
+                <label class="category-pill flex items-center justify-between p-3 rounded-xl border border-slate-200/60 dark:border-slate-800/20 bg-white/70 dark:bg-slate-950/20 cursor-pointer hover:border-blue-400 dark:hover:border-blue-500/40 hover:bg-blue-50/20 transition-all duration-200">
+                  <div class="flex items-center space-x-3">
+                    <div class="p-1.5 rounded-lg bg-yellow-100 dark:bg-yellow-950/30 text-yellow-600 dark:text-yellow-500">
+                      <i data-lucide="cpu" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                      <div class="text-sm font-bold">JavaScript Engines</div>
+                      <div class="text-[11px] text-slate-500">Variables, closures & asynchronous logic</div>
+                    </div>
+                  </div>
+                  <input type="radio" name="quiz-category" value="javascript" class="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                </label>
+
+                <label class="category-pill flex items-center justify-between p-3 rounded-xl border border-slate-200/60 dark:border-slate-800/20 bg-white/70 dark:bg-slate-950/20 cursor-pointer hover:border-blue-400 dark:hover:border-blue-500/40 hover:bg-blue-50/20 transition-all duration-200">
+                  <div class="flex items-center space-x-3">
+                    <div class="p-1.5 rounded-lg bg-purple-100 dark:bg-purple-950/30 text-purple-600 dark:text-purple-400">
+                      <i data-lucide="globe" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                      <div class="text-sm font-bold">General Web Core</div>
+                      <div class="text-[11px] text-slate-500">HTTP, REST, JSON, Web Security & performance</div>
+                    </div>
+                  </div>
+                  <input type="radio" name="quiz-category" value="general" class="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                </label>
+              </div>
+            </div>
+
+            <!-- Difficulty & Stats Selector -->
+            <div class="flex flex-col justify-between space-y-6">
+              
+              <!-- Segmented Difficulty Selector -->
+              <div>
+                <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-3 flex items-center">
+                  <i data-lucide="gauge" class="w-3.5 h-3.5 mr-1 text-slate-400"></i>
+                  Difficulty Level
+                </label>
+                <div class="grid grid-cols-3 gap-2 bg-slate-200/50 dark:bg-slate-950/30 p-1 rounded-xl">
+                  <label class="cursor-pointer text-center py-2.5 rounded-lg text-sm font-semibold transition-all relative block">
+                    <input type="radio" name="quiz-difficulty" value="easy" checked class="sr-only">
+                    <span class="difficulty-label py-1.5 px-3 block rounded-lg text-emerald-600 dark:text-emerald-400 bg-white dark:bg-slate-800 shadow-sm transition-all border border-slate-300/10">Easy</span>
+                  </label>
+                  <label class="cursor-pointer text-center py-2.5 rounded-lg text-sm font-semibold transition-all relative block">
+                    <input type="radio" name="quiz-difficulty" value="medium" class="sr-only">
+                    <span class="difficulty-label py-1.5 px-3 block rounded-lg text-slate-500 dark:text-slate-400 transition-all">Medium</span>
+                  </label>
+                  <label class="cursor-pointer text-center py-2.5 rounded-lg text-sm font-semibold transition-all relative block">
+                    <input type="radio" name="quiz-difficulty" value="hard" class="sr-only">
+                    <span class="difficulty-label py-1.5 px-3 block rounded-lg text-slate-500 dark:text-slate-400 transition-all">Hard</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- General Info Metrics -->
+              <div class="p-4 rounded-xl bg-slate-50/50 dark:bg-slate-950/40 border border-slate-200/40 dark:border-slate-800/30 text-xs text-slate-500 dark:text-slate-400 space-y-2">
+                <div class="font-semibold text-slate-700 dark:text-slate-300 mb-1">Standard Parameters:</div>
+                <div class="flex justify-between items-center">
+                  <span>Questions count:</span>
+                  <span id="setup-question-count" class="font-mono font-bold text-slate-800 dark:text-white">--</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span>Standard duration:</span>
+                  <span id="setup-time-limit" class="font-mono font-bold text-slate-800 dark:text-white">--</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span>Assessment score:</span>
+                  <span class="font-mono font-bold text-slate-800 dark:text-white">10 pts each</span>
+                </div>
+              </div>
+
+              <!-- Player Name Input -->
+              <div>
+                <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2 flex items-center">
+                  <i data-lucide="user" class="w-3.5 h-3.5 mr-1 text-slate-400"></i>
+                  Your Name
+                </label>
+                <input type="text" id="player-name-input" placeholder="Enter your name before starting" class="w-full bg-white/70 dark:bg-slate-950/20 border border-slate-300/50 dark:border-slate-800/50 rounded-xl px-4 py-2.5 text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all dark:text-white text-slate-800">
+              </div>
+
+              <!-- Start Button Action -->
+              <button id="start-quiz-btn" class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-base transition-all transform shadow-lg shadow-blue-500/20 active:translate-y-0.5 hover:-translate-y-0.5 cursor-pointer flex items-center justify-center space-x-2">
+                <span>Begin Assessment</span>
+                <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== SCREEN 2: ACTIVE QUESTION SCREEN ==================== -->
+        <section id="screen-quiz" class="hidden glass-panel rounded-3xl p-5 md:p-8 animate-fade-in">
+          
+          <!-- Timer and Indicators Bar -->
+          <div class="flex items-center justify-between mb-5 pb-4 border-b border-slate-200/40 dark:border-slate-800/10">
+            <div class="flex items-center space-x-2">
+              <span id="active-category-badge" class="px-2.5 py-1 text-xs font-bold rounded-lg bg-blue-100 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300">
+                HTML
+              </span>
+              <span id="active-difficulty-badge" class="px-2.5 py-1 text-xs font-bold rounded-lg bg-emerald-100 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400">
+                Easy
+              </span>
+            </div>
+
+            <!-- Timer Countdown widget -->
+            <div id="quiz-timer-container" class="flex items-center space-x-2 text-slate-700 dark:text-slate-200 bg-white/60 dark:bg-slate-900/40 px-3.5 py-1.5 rounded-xl border border-slate-200/50 dark:border-slate-800/30">
+              <i data-lucide="clock" class="w-4 h-4 text-blue-500"></i>
+              <span id="time-remaining-label" class="font-mono font-bold text-sm tracking-widest text-slate-800 dark:text-white">05:00</span>
+            </div>
+          </div>
+
+          <!-- Progress Indicator Status -->
+          <div class="mb-6 space-y-2">
+            <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
+              <span id="question-progress-text">Question 1 of 10</span>
+              <span id="question-progress-percent">10% Complete</span>
+            </div>
+            <!-- Progress Bar container -->
+            <div class="w-full h-2.5 bg-slate-200/60 dark:bg-slate-900/50 rounded-full overflow-hidden p-0.5 border border-white/1 overflow-hidden">
+              <div id="visual-progress-bar" class="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full transition-all duration-300" style="width: 10%"></div>
+            </div>
+          </div>
+
+          <!-- Question Text Area -->
+          <div class="mb-6">
+            <h3 id="active-question-text" class="text-base md:text-lg font-bold text-slate-800 dark:text-white leading-relaxed">
+              Loading assessment core question statement...
+            </h3>
+          </div>
+
+          <!-- Options Render Area -->
+          <div id="active-options-container" class="space-y-3 mb-6">
+            <!-- Dynamic Injector of Radio list / Checkbox list / Blank input -->
+          </div>
+
+          <!-- Required Validation Hint Warning Banner -->
+          <div id="validation-warning" class="hidden flex items-center space-x-2 p-3.5 mb-5 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-300/30 dark:border-amber-800/10 text-amber-800 dark:text-amber-300 text-xs">
+            <i data-lucide="alert-triangle" class="w-4 h-4 flex-shrink-0"></i>
+            <span>This question is mandatory. Please provide or select an option to resume evaluation.</span>
+          </div>
+
+          <!-- Interactive Footer Navigation controls -->
+          <div class="flex items-center justify-between pt-4 border-t border-slate-200/40 dark:border-slate-800/10">
+            <button id="prev-question-btn" class="flex items-center space-x-1.5 px-4 py-3 rounded-lg bg-white/60 dark:bg-slate-900/20 hover:bg-blue-50 dark:hover:bg-slate-800/50 border border-slate-200/40 dark:border-slate-800/30 text-slate-600 dark:text-slate-200 text-sm font-semibold transition-all shadow-sm cursor-pointer disabled:opacity-40 disabled:pointer-events-none">
+              <i data-lucide="arrow-left" class="w-4 h-4"></i>
+              <span>Back</span>
+            </button>
+
+            <!-- Submit active exam buttons -->
+            <button id="next-question-btn" class="flex items-center space-x-1.5 px-5 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-sm font-semibold shadow-md shadow-blue-500/10 hover:shadow-blue-500/20 active:translate-y-0.5 hover:-translate-y-0.5 transition-all cursor-pointer">
+              <span>Next</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ==================== SCREEN 3: RESULTS SUMMARY SCREEN ==================== -->
+        <section id="screen-results" class="hidden glass-panel rounded-3xl p-6 md:p-10 animate-fade-in">
+          
+          <div class="text-center mb-8">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-950/30 text-emerald-800 dark:text-emerald-400 mb-3 border border-emerald-200/10">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5 mr-1 text-emerald-500"></i>
+              Evaluation Completed Successfully
+            </span>
+            <h2 id="results-headline-text" class="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-800 dark:text-white">
+              Outstanding Work!
+            </h2>
+            <p class="text-slate-500 dark:text-slate-400 text-xs md:text-sm mt-1">
+              Your results has been calculated from the local server core. See performance breakdown below:
+            </p>
+          </div>
+
+          <!-- Dashboard Performance metrics card grid -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="bg-white/40 dark:bg-slate-900/30 p-4 rounded-2xl border border-white/50 dark:border-white/5 text-center">
+              <div class="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Score Ratio</div>
+              <div id="metric-score-raw" class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white font-mono">
+                8/10
+              </div>
+            </div>
+
+            <div class="bg-white/40 dark:bg-slate-900/30 p-4 rounded-2xl border border-white/50 dark:border-white/5 text-center">
+              <div class="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Percentage</div>
+              <div id="metric-score-pct" class="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent font-mono">
+                80%
+              </div>
+            </div>
+
+            <div class="bg-white/40 dark:bg-slate-900/30 p-4 rounded-2xl border border-white/50 dark:border-white/5 text-center">
+              <div class="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Letter Grade</div>
+              <div id="metric-score-grade" class="text-xl md:text-2xl font-black text-indigo-600 dark:text-indigo-400 font-mono">
+                A
+              </div>
+            </div>
+
+            <div class="bg-white/40 dark:bg-slate-900/30 p-4 rounded-2xl border border-white/50 dark:border-white/5 text-center">
+              <div class="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Time Elapsed</div>
+              <div id="metric-elapsed" class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white font-mono">
+                02:15
+              </div>
+            </div>
+          </div>
+
+          <!-- Leaderboard auto-save indicator -->
+          <div id="leaderboard-register-container" class="bg-indigo-55/40 dark:bg-slate-900/50 p-5 rounded-2xl border border-indigo-200/20 dark:border-slate-800/30 mb-8">
+            <h4 class="text-sm font-bold text-indigo-900 dark:text-indigo-300 mb-1 flex items-center">
+              <i data-lucide="trophy" class="w-4 h-4 mr-1.5 text-amber-500"></i>
+              Performance Registered
+            </h4>
+            <div id="register-success-indicator" class="hidden text-xs text-emerald-600 dark:text-emerald-400 font-semibold flex items-center space-x-1.5 mt-1">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+              <span>Your score has been saved to the leaderboard!</span>
+            </div>
+          </div>
+
+          <!-- Detailed Academic Review Accordion -->
+          <div class="mb-8 p-1.5 rounded-2xl bg-slate-300/10 dark:bg-slate-900/35 border border-slate-200/30 dark:border-slate-800/10">
+            <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 px-3.5 py-3 border-b border-slate-220/20 flex justify-between items-center">
+              <span>Answer Review Sheet</span>
+              <span class="text-[11px] font-mono uppercase bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded-md">100% Comprehensive</span>
+            </h3>
+            
+            <div id="results-review-accordion" class="max-h-96 overflow-y-auto divide-y divide-slate-200/20 dark:divide-slate-800/30 px-1">
+              <!-- Inline Questions reviewed dynamically standard structure goes here -->
+            </div>
+          </div>
+
+          <!-- Action block Buttons -->
+          <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-200/40 dark:border-slate-800/10">
+            <button id="results-retry-btn" class="flex-1 py-3.5 px-5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-sm font-bold shadow-md shadow-blue-500/20 transition-all transition transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center justify-center space-x-1.5">
+              <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+              <span>Attempt New Assessment</span>
+            </button>
+            <button id="results-leaderboard-btn" class="py-3.5 px-5 rounded-xl bg-white/60 dark:bg-slate-900/20 hover:bg-slate-100 dark:hover:bg-slate-800/30 border border-slate-200/40 dark:border-slate-800/30 text-slate-600 dark:text-slate-200 text-sm font-bold shadow-sm transition-all cursor-pointer flex items-center justify-center space-x-1.5">
+              <i data-lucide="trophy" class="w-4 h-4 text-amber-500"></i>
+              <span>Visualize Hall of Fame</span>
+            </button>
+          </div>
+
+        </section>
+
+      </main>
+
+      <!-- Bottom Platform Footer info -->
+      <footer class="mt-12 py-6 text-center border-t border-slate-200/30 dark:border-slate-800/10 text-xs text-slate-500 dark:text-slate-400 flex flex-col md:flex-row justify-between items-center gap-3">
+        <div class="flex items-center space-x-1 font-medium">
+          <span>&copy; 2026</span>
+          <span class="text-slate-800 dark:text-slate-200 font-bold">WebAcademy Sandbox</span>
+          <span class="text-slate-400">·</span>
+          <span>Internship Dashboard</span>
+        </div>
+        <div class="flex items-center space-x-4">
+          <a href="#" id="view-rules-link" class="hover:text-blue-500 transition-all">Evaluation Policy</a>
+          <span>·</span>
+          <a href="#" id="view-leaderboard-foot" class="hover:text-blue-500 transition-all">Leaderboards</a>
+        </div>
+      </footer>
+
+    </div>
+
+    <!-- ==================== LEADERBOARD FLOATING MODAL ==================== -->
+    <div id="modal-leaderboard" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/65 backdrop-blur-md transition-all">
+      <div class="glass-panel w-full max-w-md rounded-2xl shadow-2xl p-6 md:p-8 relative translate-y-0 transition-all animate-fade-in dark:bg-slate-950/80">
+        
+        <button id="leaderboard-close" class="absolute top-4 right-4 p-1.5 rounded-lg text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all cursor-pointer" aria-label="Close dialog">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+
+        <div class="flex items-center space-x-3 mb-6">
+          <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-amber-100 dark:bg-amber-950/30 text-amber-500">
+            <i data-lucide="trophy" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-extrabold text-slate-800 dark:text-white">Hall of Fame</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Top assessment grades in Local Storage</p>
+          </div>
+        </div>
+
+        <div class="space-y-3.5 max-h-72 overflow-y-auto mb-6 pr-1 custom-scroll" id="leaderboard-list">
+          <!-- Dynamic High Score List goes here -->
+        </div>
+
+        <div class="flex justify-between items-center pt-4 border-t border-slate-200/20 dark:border-slate-800/30">
+          <button id="leaderboard-clear-btn" class="flex items-center space-x-1.5 text-xs text-rose-500 dark:text-rose-405 hover:bg-rose-50 dark:hover:bg-rose-950/15 p-2 rounded-lg transition-all cursor-pointer">
+            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+            <span>Purge Leaderboards</span>
+          </button>
+          
+          <button id="leaderboard-ok" class="px-5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-150 text-white dark:text-slate-900 text-xs font-bold transition-all cursor-pointer">
+            Dismiss
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==================== RULES AND ASSISTANCE POPUP MODAL ==================== -->
+    <div id="modal-info" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/65 backdrop-blur-md transition-all">
+      <div class="glass-panel w-full max-w-md rounded-2xl shadow-2xl p-6 md:p-8 relative animate-fade-in dark:bg-slate-950/80">
+        
+        <button id="info-close" class="absolute top-4 right-4 p-1.5 rounded-lg text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all cursor-pointer" aria-label="Close details">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+
+        <div class="flex items-center space-x-3 mb-5">
+          <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-950/30 text-blue-500 animate-bounce">
+            <i data-lucide="info" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-extrabold text-slate-800 dark:text-white">Assessment Guidelines</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Web Developer Internship Standards</p>
+          </div>
+        </div>
+
+        <div class="space-y-3.5 text-xs text-slate-600 dark:text-slate-350 leading-relaxed mb-6">
+          <p>
+            Welcome to the <strong>QuizAcademy</strong> evaluation engine. Review the guidelines below to proceed successfully:
+          </p>
+          <ul class="list-disc pl-4 space-y-2">
+            <li><strong>Multiple Question Formats:</strong> In this quiz, you will see Single Choice (Radio button selection), Multiple Select (Checkboxes with multiple allowed responses), and Fill-in-the-Blank inputs.</li>
+            <li><strong>Skipping Restriction:</strong> To maintain candidate compliance, you are prevented from skipping questions. The navigation panel will warn you when options are empty.</li>
+            <li><strong>Durable Scorecards:</strong> Once answers are inputted and submitted, scores will calculate. Registered scores are saved permanently in the browser Local Storage.</li>
+            <li><strong>Theme Toggle:</strong> Easily switch between beautiful Light and Dark themes. Your choice is automatically kept intact in Local Storage.</li>
+            <li><strong>Quiz Timing:</strong> The clock starts immediately when you initialize. If the timer hits zero, the quiz will auto-submit all saved evaluations instantly.</li>
+          </ul>
+        </div>
+
+        <div class="text-right pt-3 border-t border-slate-200/20 dark:border-slate-800/30">
+          <button id="info-ok" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-md shadow-blue-500/10 cursor-pointer">
+            Acknowledge Selection
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Main Application Core Module -->
+    <script type="module" src="./script.js"></script>
+  </body>
+</html>
