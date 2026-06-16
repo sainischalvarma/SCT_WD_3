@@ -99,7 +99,34 @@ body.dark-theme {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* Scrollbar styles */
+/* Streak pop animation */
+@keyframes streak-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+.streak-pop {
+  animation: streak-pop 0.35s ease;
+}
+
+/* Animated counter */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.count-up {
+  animation: count-up 0.5s ease forwards;
+}
+
+/* Hint box slide in */
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.slide-down {
+  animation: slide-down 0.25s ease forwards;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
 }
